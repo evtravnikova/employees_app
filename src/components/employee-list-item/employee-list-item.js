@@ -1,48 +1,29 @@
-import {Component} from "react";
 import './employee-list-item.css';
 
-class EmployeeListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            increase: false,
-            likeClass: false
-        }
-    };
+const EmployeeListItem = (props) => {
 
-    onIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
-        }))
-    };
-
-    addLike = () => {
-        console.log('like')
-        this.setState(({likeClass}) => ({
-            likeClass: !likeClass
-        }))
-    };
-
-    render() {
-        const {name, salary, onDelete} = this.props;
-        const {increase, likeClass} = this.state;
-        let classNames = 'list-group-item d-flex justify-content-between';
-        if (increase) {
-            classNames += ' increase'
-        }
-        if (likeClass) {
-            classNames += ' like'
-        }
+    const {name, salary, onDelete, onToggleProp, increase, rise} = props;
+    let classNames = 'list-group-item d-flex justify-content-between';
+    if (increase) {
+        classNames += ' increase'
+    }
+    if (rise) {
+        classNames += ' like'
+    }
 
         return (
             <li className={classNames}>
                 <span className='list-group-item-label'
-                      onClick={this.addLike}>{name}</span>
+                      onClick={onToggleProp}
+                      data-toggle='rise'
+                >{name}</span>
                 <input type='text' className='list-group-item-input' defaultValue={'$' + salary}/>
                 <div className='d-flex justify-content-center align-items-center'>
                     <button type='button'
                             className='btn-cookie btn-sm '
-                            onClick={this.onIncrease}>
+                            onClick={onToggleProp}
+                            data-toggle='increase'
+                    >
                         <i className='fas fa-cookie'></i>
                     </button>
                     <button type='button'
@@ -55,6 +36,6 @@ class EmployeeListItem extends Component {
             </li>
         )
     }
-}
+
 
 export default EmployeeListItem;
