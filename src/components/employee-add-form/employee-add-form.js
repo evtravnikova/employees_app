@@ -6,7 +6,8 @@ class EmployeeAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: ''
+            salary: '',
+            warningClassName: 'hidden'
         }
     }
 
@@ -18,17 +19,29 @@ class EmployeeAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, this.state.salary);
-        this.setState({
-            name: '',
-            salary: ''
-        })
+
+        const {name, salary, warningClassName} = this.state;
+
+        if (name && salary) {
+            this.props.onAdd(name, salary);
+            this.setState({
+                name: '',
+                salary: '',
+                warningClassName: 'hidden'
+            })
+        } else {
+            console.log('.......');
+            this.setState({
+                name: name,
+                salary: salary,
+                warningClassName: 'showed'
+            })
+        }
     }
 
 
-
     render() {
-        const {name, salary} = this.state;
+        const {name, salary, warningClassName} = this.state;
 
         return (
             <div className='app-add-form'>
@@ -36,7 +49,7 @@ class EmployeeAddForm extends Component {
                 <form
                     className='add-form d-flex'
                     onSubmit={this.onSubmit}
-                    >
+                >
                     <input type="text"
                            className='form-control new-post-label'
                            placeholder="Впишіть його ім`я та прізвище"
@@ -56,6 +69,7 @@ class EmployeeAddForm extends Component {
                             className='btn btn-outline-light'>Додати
                     </button>
                 </form>
+                <p className={warningClassName}>Введіть значення</p>
             </div>
         )
     }
