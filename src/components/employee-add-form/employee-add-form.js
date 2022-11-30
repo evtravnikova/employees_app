@@ -20,7 +20,7 @@ class EmployeeAddForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        const {name, salary, warningClassName} = this.state;
+        const {name, salary} = this.state;
 
         if (name && salary) {
             this.props.onAdd(name, salary);
@@ -30,7 +30,6 @@ class EmployeeAddForm extends Component {
                 warningClassName: 'hidden'
             })
         } else {
-            console.log('.......');
             this.setState({
                 name: name,
                 salary: salary,
@@ -69,7 +68,7 @@ class EmployeeAddForm extends Component {
                             className='btn btn-outline-light'>Додати
                     </button>
                 </form>
-                <p className={warningClassName}>Введіть значення</p>
+                <p className={warningClassName}>Введіть обидва значення</p>
             </div>
         )
     }
