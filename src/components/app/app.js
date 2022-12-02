@@ -13,17 +13,21 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                {name: 'Sergii Sternenko', salary: 2780, increase: false, rise: false, id: 1},
+                {name: 'Sergii Sternenko', salary: 780, increase: false, rise: false, id: 1},
                 {name: 'Adam Polanski', salary: 480, increase: false, rise: false, id: 2},
-                {name: 'Ewa Gonsales', salary: 1100, increase: false, rise: false, id: 3},
-                {name: 'Rick Potek', salary: 1500, increase: false, rise: true, id: 4},
+                {name: 'Ewa Gonsales', salary: 100, increase: false, rise: false, id: 3},
+                {name: 'Rick Potek', salary: 500, increase: false, rise: true, id: 4},
                 {name: 'Mona Zelinsky', salary: 920, increase: false, rise: false, id: 5}
             ],
             searchString: '',
-            filterAttribute: 'all'
+            filterAttribute: 'all',
         }
+        this.riseEmptyFilter = false;
+        this.overThousandEmptyFilter = false;
+        this.allEmptyFilter = false;
         this.maxId = 5;
     }
+
 
     deleteItem = (id) => {
         this.setState(({data}) => {
@@ -71,16 +75,27 @@ class App extends Component {
         })
     }
 
-     onUpdateSearch = (searchString) => {
+    onUpdateSearch = (searchString) => {
         this.setState({searchString});
     }
 
     filterPost = (items, attribute) => {
         switch (attribute) {
             case 'rise':
+                if (items.filter(item => item.rise).length === 0 && this.state.filterAttribute === 'rise') {
+                    this.riseEmptyFilter = !this.riseEmptyFilter;
+                }
                 return items.filter(item => item.rise);
             case 'overThousand':
-                return items.filter(item => item.salary > 1000);
+                if (items.filter(item => item.salary > 1000).length === 0 && this.state.filterAttribute === 'overThousand') {
+                    this.overThousandEmptyFilter = !this.overThousandEmptyFilter;
+                }
+                 return items.filter(item => item.salary > 1000);
+                case 'all':
+                    if (items.length === 0) {
+                        this.allEmptyFilter = !this.allEmptyFilter;
+                    }
+                    return items
             default:
                 return items
         }
@@ -92,14 +107,14 @@ class App extends Component {
     }
 
     onUpdateSalary = (newSalary, name) => {
-            this.setState(({data}) => ({
-                data: data.map(person => {
-                    if (person.name === name) {
-                        return {...person, salary: newSalary.replace(/\D/g, '')}
-                    }
-                    return person
-                })
-            }))
+        this.setState(({data}) => ({
+            data: data.map(person => {
+                if (person.name === name) {
+                    return {...person, salary: newSalary.replace(/\D/g, '')}
+                }
+                return person
+            })
+        }))
     }
 
 
@@ -128,6 +143,9 @@ class App extends Component {
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                     onUpdateSalary={this.onUpdateSalary}
+                    riseEmptyFilter={this.riseEmptyFilter}
+                    allEmptyFilter={this.allEmptyFilter}
+                    overThousandEmptyFilter={this.overThousandEmptyFilter}
                 />
                 <EmployeeAddForm onAdd={this.addItem}/>
             </div>
