@@ -8,15 +8,28 @@ class EmployeeList extends Component {
 
 
     render() {
-        const {data, onDelete, onToggleProp, onUpdateSalary, riseEmptyFilter, overThousandEmptyFilter, allEmptyFilter} = this.props;
+        const {data, onDelete, onToggleProp, onUpdateSalary, filterAttribute} = this.props;
 
-        let emptyRiseWarning = '',
-            emptyIncreaseWarning = '',
-            emptyAllFilter = '';
 
-        riseEmptyFilter? emptyRiseWarning = <p>Працівників, які очікують на підвищення, не знайдено</p> : emptyRiseWarning = '';
-        overThousandEmptyFilter? emptyIncreaseWarning = <p>Працівників, які отримують більше ніж $1000, не знайдено</p> : emptyIncreaseWarning = '';
-        allEmptyFilter? emptyAllFilter = <p>Працівників у базі: 0. Додайте першого працівника.</p> : emptyAllFilter = '';
+        if (Object.keys(data).length === 0) {
+            let warningMsg = '';
+
+            switch (filterAttribute) {
+                case 'rise':
+                     warningMsg = <p>Працівників, які очікують на підвищення, не знайдено</p>
+                    break
+                case 'overThousand':
+                     warningMsg = <p>Працівників, які отримують більше ніж $1000, не знайдено</p>
+                    break
+                default:
+                     warningMsg = <p>Працівників у базі: 0. Додайте першого працівника.</p>
+                    break
+            }
+            return (<ul className='app-list list-group'>
+                {warningMsg}
+            </ul>)
+        }
+
 
         const elements = data.map(item => {
             const {id, ...itemProps} = item;
@@ -35,15 +48,9 @@ class EmployeeList extends Component {
         })
 
         return (
-            <>
-                <ul className='app-list list-group'>
-                    {elements}
-                    {emptyAllFilter}
-                    {emptyRiseWarning}
-                    {emptyIncreaseWarning}
-                </ul>
-
-            </>
+            <ul className='app-list list-group'>
+                {elements}
+            </ul>
         )
     }
 

@@ -22,9 +22,6 @@ class App extends Component {
             searchString: '',
             filterAttribute: 'all',
         }
-        this.riseEmptyFilter = false;
-        this.overThousandEmptyFilter = false;
-        this.allEmptyFilter = false;
         this.maxId = 5;
     }
 
@@ -82,20 +79,9 @@ class App extends Component {
     filterPost = (items, attribute) => {
         switch (attribute) {
             case 'rise':
-                if (items.filter(item => item.rise).length === 0 && this.state.filterAttribute === 'rise') {
-                    this.riseEmptyFilter = !this.riseEmptyFilter;
-                }
                 return items.filter(item => item.rise);
             case 'overThousand':
-                if (items.filter(item => item.salary > 1000).length === 0 && this.state.filterAttribute === 'overThousand') {
-                    this.overThousandEmptyFilter = !this.overThousandEmptyFilter;
-                }
-                 return items.filter(item => item.salary > 1000);
-                case 'all':
-                    if (items.length === 0) {
-                        this.allEmptyFilter = !this.allEmptyFilter;
-                    }
-                    return items
+                return items.filter(item => item.salary > 1000);
             default:
                 return items
         }
@@ -143,9 +129,7 @@ class App extends Component {
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                     onUpdateSalary={this.onUpdateSalary}
-                    riseEmptyFilter={this.riseEmptyFilter}
-                    allEmptyFilter={this.allEmptyFilter}
-                    overThousandEmptyFilter={this.overThousandEmptyFilter}
+                    filterAttribute={filterAttribute}
                 />
                 <EmployeeAddForm onAdd={this.addItem}/>
             </div>
