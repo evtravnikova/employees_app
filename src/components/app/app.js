@@ -125,6 +125,7 @@ class App extends Component {
                 </div>
                 <EmployeeList
                     data={visibleData}
+                    filterState={filterAttribute}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                     onUpdateSalary={this.onUpdateSalary}
