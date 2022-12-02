@@ -61,7 +61,7 @@ class App extends Component {
         }))
     }
 
-    searchEmployee = (items, searchString) => {
+    searchEmp = (items, searchString) => {
 
         if (searchString.length === 0) {
             return items;
@@ -71,6 +71,9 @@ class App extends Component {
         })
     }
 
+     onUpdateSearch = (searchString) => {
+        this.setState({searchString});
+    }
 
     filterPost = (items, attribute) => {
         switch (attribute) {
@@ -104,7 +107,7 @@ class App extends Component {
         const {data, searchString, filterAttribute} = this.state;
         const employeesQty = this.state.data.length;
         const increasedQty = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.filterPost(this.searchEmployee(data, searchString), filterAttribute);
+        const visibleData = this.filterPost(this.searchEmp(data, searchString), filterAttribute);
 
         return (
             <div className='app'>
