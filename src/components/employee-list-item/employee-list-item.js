@@ -6,9 +6,16 @@ class EmployeeListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            salary: this.props.salary
+            salary: this.props.salary,
         }
+    }
 
+    defineKeyForA11y = (e) => {
+        const {secondToggleProp, id} = this.props;
+
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+             secondToggleProp(id, e.currentTarget.getAttribute('data-toggle'))
+        }
     }
 
 
@@ -22,11 +29,14 @@ class EmployeeListItem extends Component {
             classNames += ' like'
         }
 
+
         return (
             <li className={classNames}>
                 <span className='list-group-item-label'
                       onClick={onToggleProp}
                       data-toggle='rise'
+                      tabIndex='0'
+                      onKeyDown={(e) => this.defineKeyForA11y(e)}
                 >{name}</span>
                 <input
                     type='text'

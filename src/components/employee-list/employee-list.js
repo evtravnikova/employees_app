@@ -8,7 +8,7 @@ class EmployeeList extends Component {
 
 
     render() {
-        const {data, onDelete, onToggleProp, onUpdateSalary, filterAttribute} = this.props;
+        const {data, onDelete, onToggleProp, onUpdateSalary, filterAttribute, onDefineKeyForA11y} = this.props;
 
 
         if (Object.keys(data).length === 0) {
@@ -38,10 +38,13 @@ class EmployeeList extends Component {
                 <>
                     <EmployeeListItem
                         key={id}
+                        id={id}
                         {...itemProps}
                         onDelete={() => onDelete(id)}
                         onToggleProp={(e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}
+                        secondToggleProp={onToggleProp}
                         onUpdateSalary={onUpdateSalary}
+                        onDefineKeyForA11y={onDefineKeyForA11y}
                     />
                 </>
             )

@@ -109,6 +109,7 @@ class App extends Component {
         const employeesQty = this.state.data.length;
         const increasedQty = this.state.data.filter(item => item.increase).length;
         const visibleData = this.filterPost(this.searchEmp(data, searchString), filterAttribute);
+        const id = this.state.data.id;
 
         return (
             <div className='app'>
@@ -120,16 +121,17 @@ class App extends Component {
                 <div className='search-panel'>
                     <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter
-                        filterUpdate={this.onFilterUpdate}
                         filter={filterAttribute}
+                        filterUpdate={this.onFilterUpdate}
                     />
                 </div>
                 <EmployeeList
                     data={visibleData}
+                    id={id}
+                    filterAttribute={filterAttribute}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                     onUpdateSalary={this.onUpdateSalary}
-                    filterAttribute={filterAttribute}
                 />
                 <EmployeeAddForm onAdd={this.addItem}/>
             </div>
