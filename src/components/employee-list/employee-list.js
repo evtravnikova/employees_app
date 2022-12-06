@@ -42,14 +42,13 @@ class EmployeeList extends Component {
                         {...itemProps}
                         onDelete={() => onDelete(id)}
                         onToggleProp={(e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}
-                        secondToggleProp={onToggleProp}
                         onUpdateSalary={onUpdateSalary}
+                        secondToggleProp={onToggleProp}
                         onDefineKeyForA11y={onDefineKeyForA11y}
                     />
                 </>
             )
         })
-
         return (
             <ul className='app-list list-group'>
                 {elements}

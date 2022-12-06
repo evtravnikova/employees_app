@@ -14,7 +14,7 @@ class EmployeeListItem extends Component {
         const {secondToggleProp, id} = this.props;
 
         if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-             secondToggleProp(id, e.currentTarget.getAttribute('data-toggle'))
+            secondToggleProp(id, e.currentTarget.getAttribute('data-toggle'))
         }
     }
 
